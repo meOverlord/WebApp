@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "overlord-85d44": {
+      "hosting": {
+        "overlord": [
+          "overlord-85d44"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "overlord-85d44"
+  }
+}

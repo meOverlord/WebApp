@@ -1,0 +1,22 @@
+<ng-container *ngIf="tasks">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Task name</th>
+				<th>Due date</th>
+				<th>Start date</th>
+				<th>End date</th>
+				<th>Client</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let task of tasks">
+				<td>{{task.label}}</td>
+				<td>{{task.dueDate}}</td>
+				<td>{{task.startDate}}</td>
+				<td>{{task.endDate}}</td>
+				<td>{{task.clientId}}</td>
+			</tr>
+		</tbody>
+	</table>
+</ng-container>

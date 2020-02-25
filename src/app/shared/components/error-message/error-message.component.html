@@ -1,0 +1,6 @@
+<ng-container *ngIf="error?.code == Authcodes.INVALID_CREDENTIALS">Your credentials are not valid!</ng-container>
+<ng-container *ngIf="error?.code == Authcodes.INVALID_EMAIL">This Email is not valid</ng-container>
+<ng-container *ngIf="error?.code == Authcodes.USER_DISABLED">Your account has been disabled</ng-container>
+<ng-container *ngIf="
+	error?.code == Authcodes.UNKNOWN_ERROR || 
+	!error">Unknwon error</ng-container>

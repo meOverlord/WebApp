@@ -1,0 +1,39 @@
+<ng-container *ngIf="!loading && loading != undefined;else loadingText">
+	<table *ngIf="clients; else noClient" class="table">
+		<thead>
+			<tr>
+				<th i18n="@@ClientsTable_Name">Name</th>
+				<th i18n="@@ClientsTable_PreferredLanguage">Preferred language</th>
+				<th i18n="@@ClientsTable_LegalId">Legal identification</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let client of clients">
+				<td>{{client.name}}</td>
+				<td>
+					<app-nullable-table-row [inputData]="client.preferedLanguage">
+						{{client.preferedLanguage}}
+					</app-nullable-table-row></td>
+				<td>
+					<app-nullable-table-row [inputData]="client.legalIds">
+						<ng-container *ngIf="client.legalIds?.length === 1; else multipleLegalIds">
+							{{client.legalIds[0].id}}
+						</ng-container>
+						<ng-template #multipleLegalIds>
+							<ng-container i18n="@@ClientsTable_">Multiple</ng-container>  
+							<span class="icon has-text-info">
+								<i class="fas fa-info-circle"></i>
+							 </span>
+						</ng-template>
+					</app-nullable-table-row>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<ng-template #noClient i18n="@@ClientsTable_NoContent">
+		No client
+	</ng-template>
+</ng-container>
+<ng-template #loadingText i18n="@@ClientsTable_Loading">
+	Loading...
+</ng-template>

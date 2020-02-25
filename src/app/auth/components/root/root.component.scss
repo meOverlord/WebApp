@@ -1,0 +1,22 @@
+@import '../../../../style/variables.scss';
+
+:host {
+    .main-div {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .centered {
+            margin: 10px auto;
+            width: 80%;
+
+            @media screen and (max-width: $break-small) {
+                width: 90%;
+            }
+            @media screen and (min-width: $break-large) {
+                width: 50%;
+            }
+        }
+    }   
+}

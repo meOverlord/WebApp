@@ -1,0 +1,29 @@
+<div class="main-div">
+    <div class="centered card" flex="50" >
+        <div class="card-content">
+            <div class="tabs is-centered">
+                <ul>
+                    <li [class.is-active]="selected==tabs.signin">
+                        <a [routerLink]="['/auth']">
+                            Sign-in
+                        </a>
+                    </li>
+                    <li [class.is-active]="selected==tabs.signup"
+                        (click)="selected=tabs.signup">
+                        <a [routerLink]="['/auth', 'signup']">
+                            Sign-up
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+        <footer class="card-footer">
+            <a href="#" class="card-footer-item">Google</a>
+            <a href="#" class="card-footer-item">Facebook</a>
+            <a href="#" class="card-footer-item">Autre</a>
+          </footer>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<div [class.is-active]="shown" class="modal">
+  <div  (click)="shown = false" class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Modal title</p>
+    </header>
+    <section class="modal-card-body">
+      <ng-container *ngIf="type == InformationType.ERROR">
+        <app-error-message [error]="error"></app-error-message>
+      </ng-container>
+    </section>
+    <footer class="modal-card-foot">
+      <button (click)="shown = false" class="button">Close</button>
+    </footer>
+  </div>
+</div>

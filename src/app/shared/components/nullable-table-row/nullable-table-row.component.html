@@ -1,0 +1,6 @@
+<ng-container *ngIf="inputData; else noContent">
+	<ng-content></ng-content>
+</ng-container>
+<ng-template #noContent>
+	empty
+</ng-template>

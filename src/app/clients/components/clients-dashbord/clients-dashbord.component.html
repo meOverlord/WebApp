@@ -1,0 +1,23 @@
+
+<div *ngIf="clients" class="columns">
+	<div class="column">
+		<h4 class="title is-4">
+			<a [routerLink]="['/clients', 'list']">my clients</a>
+		</h4>
+		
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Client</th>
+					<th>Last task</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let client of clients">
+					<td>{{client.name}}</td>
+					<td>{{client.lastTask.date | date}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

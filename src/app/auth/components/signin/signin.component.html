@@ -1,0 +1,27 @@
+<form #signinForm="ngForm" (ngSubmit)="submit();">
+  <div class="field">
+    <label class="label">Email</label>
+    <div class="control">
+      <input name="email" [(ngModel)]="formData.email"
+        required minlength="3"
+        class="input" type="email" placeholder="Email" />
+    </div>
+  </div>
+  <div class="field">
+    <label class="label">Password</label>
+    <div class="control">
+      <input
+        name="password" [(ngModel)]="formData.password"
+        required minlength="6"
+        class="input" type="password" placeholder="Password"
+      />
+    </div>
+  </div>
+  <div class="field is-grouped">
+    <div class="control">
+      <button 
+         [disabled]="!signinForm.valid"
+        type="submit" class="button is-link">Sign-up</button>
+    </div>
+  </div>
+</form>

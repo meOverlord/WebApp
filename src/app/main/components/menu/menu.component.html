@@ -1,0 +1,72 @@
+<nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+    <div class="container">
+		<div class="navbar-brand">
+			<a class="navbar-item" routerLink="/">
+				Home
+			</a>
+
+			<a 
+				[class.is-active] = "burgerActive"
+				(click) = "burgerActive = !burgerActive"
+				role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false">
+			  <span aria-hidden="true"></span>
+			  <span aria-hidden="true"></span>
+			  <span aria-hidden="true"></span>
+			</a>
+		</div>
+		  <div [class.is-active] = "burgerActive"
+		  	class="navbar-menu">
+
+            <div class="navbar-start">
+                <ng-container *ngIf="auth">
+                    <a routerLink="/clients" class="navbar-item">
+                        clients
+                    </a>
+                    <a routerLink="/tasks" class="navbar-item">
+                        taks
+                    </a>
+                </ng-container>
+            </div>
+            <div class="navbar-end">
+					 <ng-container *ngIf="!auth;else rightUnsigned">
+						<div class="navbar-item">
+							<a routerLink="/auth"
+								class="button is-outlined">
+								Sign-in
+						</a>
+						</div>
+						<div class="navbar-item">
+                    <a routerLink="/auth/signup" class="button is-primary is-inverted is-outlined">
+                        Sign-up
+						  </a>
+						</div>
+					</ng-container>
+                <ng-template #rightUnsigned>
+							<div class="navbar-item">
+								<a (click)="signout()" class="button is-primary is-inverted is-outlined">
+										Sign-out
+								</a>
+							</div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="quickview is-left">
+	<header class="quickview-header">
+	  <p class="title">Quickview title</p>
+	  <span class="delete" data-dismiss="quickview"></span>
+	</header>
+ 
+	<div class="quickview-body">
+	  <div class="quickview-block">
+		 ...
+	  </div>
+	</div>
+ 
+	<footer class="quickview-footer">
+ 
+	</footer>
+ </div>
+ 
