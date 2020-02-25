@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { backendEndpoint } from '@shared/config';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { IUser } from 'src/app/models/user';
 import { JwtService } from './../jwt/jwt.service';
@@ -13,8 +13,8 @@ interface SigninResult {
 }
 
 
-const signupQuery = gql`
-  query CreateUser($name: String!, $email: String, $password: String) {
+const signupMutation = gql`
+  mutation CreateUser($name: String!, $email: String, $password: String) {
     createUser(input: {
 		 name: $name
 		 email: $email
@@ -49,19 +49,23 @@ export class AuthService {
 	}
 
 	public signup(id: string, secret: string, name: string): Observable<IUser> {
-		this.apollo.mutate({
-			mutation: signupQuery,
+		return this.apollo.mutate({
+			mutation: signupMutation,
 			variables: {
 				name,
 				password: secret,
 				email: id
 			}
-		}).subscribe(({ data }) => {
-			console.log(data);
-		}, (error) => {
-			console.log('there was an error sending the query', error);
-		});
-		return null;
+		}).pipe(
+			tap(({ data }) => {
+				console.log(data);
+			}),
+			map(d => null),
+			catchError(error => {
+				console.log('there was an error sending the query', error);
+				return throwError(error);
+			})
+		);
 	}
 
 	/*public signout(): Observable<never> {

@@ -1,7 +1,8 @@
 const tokenName = 'access_token';
 
 export function getJwtToken() {
-	return localStorage.getItem(tokenName);
+	console.log('Get jwt token', localStorage.getItem(tokenName));
+	return localStorage.getItem(tokenName) || '';
 }
 
 export function setJwtToken(token: string) {

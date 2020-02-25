@@ -52,8 +52,12 @@ import { reducers } from './store/reducers/reducers';
 			useFactory: (httpLink: HttpLink) => {
 				const authMiddleware = new ApolloLink((operation, forward) => {
 					// add the authorization to the headers
+					const headers = new HttpHeaders();
+					if (getJwtToken()) {
+						headers.set('Authorization', getJwtToken());
+					}
 					operation.setContext({
-						headers: new HttpHeaders().set('Authorization', localStorage.getItem('token') || null)
+						headers
 					});
 
 					return forward(operation);
