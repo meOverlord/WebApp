@@ -1,9 +1,9 @@
 import { IUser } from 'src/app/models/user';
 
 export interface IAuthState {
-    signedUser: IUser;
+	signedUser: IUser;
 }
 
 export const INITIAL_AUTH_STATE: IAuthState = {
-    signedUser: undefined,
+	signedUser: undefined,
 };

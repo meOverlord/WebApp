@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { Store } from '@ngrx/store';
 import { signinSuccess, signoutSuccess } from '@store/actions';
 import { IAppState } from '@store/states';
 import { AuthService } from './auth/services/auth/auth.service';
+import { JwtService } from './auth/services/jwt/jwt.service';
+
 
 @Component({
 	selector: 'app-root',
@@ -15,11 +16,11 @@ export class AppComponent implements OnInit {
 
 	constructor(
 		private store: Store<IAppState>,
-		private fireAuth: AngularFireAuth
+		private jwt: JwtService
 	) {}
 
 	ngOnInit() {
-		this.fireAuth.authState
+		this.jwt.authStatus
 		.subscribe(state => {
 			if (!state) {
 				return this.store.dispatch(
@@ -27,7 +28,7 @@ export class AppComponent implements OnInit {
 				);
 			}
 			this.store.dispatch(
-				signinSuccess(AuthService.FireUser2User(state))
+				signinSuccess()
 			);
 		});
 	}

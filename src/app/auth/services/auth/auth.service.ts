@@ -1,50 +1,76 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { auth, User } from 'firebase/app';
-import { EMPTY, from, Observable, throwError } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { backendEndpoint } from '@shared/config';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 import { IUser } from 'src/app/models/user';
-import { Authcodes } from './auth.codes';
-import { FireAuthErrorCodes as Codes } from './fireauth.codes';
+import { JwtService } from './../jwt/jwt.service';
+
+interface SigninResult {
+	access_token: string;
+}
+
+
+const signupQuery = gql`
+  query CreateUser($name: String!, $email: String, $password: String) {
+    createUser(input: {
+		 name: $name
+		 email: $email
+		 password: $password
+	}) {
+		_id
+		name
+		inscriptionDate
+    }
+  }
+`;
 
 
 @Injectable({
 	providedIn: 'root'
 })
 export class AuthService {
-	constructor(private fireAuth: AngularFireAuth) {}
+	constructor(
+		private http: HttpClient,
+		private apollo: Apollo,
+		private jwt: JwtService) { }
 
-	public static FireUser2User(fireUser: User): IUser {
-		if (!fireUser) {
-			return undefined;
-		}
-		return {
-			id: fireUser.uid,
-			displayName: fireUser.displayName
-		};
-	}
-
-	public signin(id: string, secret: string): Observable<IUser> {
-		return from(this.fireAuth.signInWithEmailAndPassword(id, secret)).pipe(
-			map((credential: auth.UserCredential) => AuthService.FireUser2User(credential.user)),
-			catchError(this.handleFireauthError)
+	public signin(id: string, secret: string): Observable<boolean> {
+		return this.http.post<SigninResult>(backendEndpoint('auth/signin'), {
+			ident: id,
+			password: secret
+		}).pipe(
+			tap(result => this.jwt.authenticate(result.access_token)),
+			map(result => result?.access_token !== undefined),
+			catchError(err => of(false))
 		);
 	}
 
-	public signup(id: string, secret: string): Observable<IUser> {
-		return from(this.fireAuth.createUserWithEmailAndPassword(id, secret)).pipe(
-			map((credential: auth.UserCredential) => AuthService.FireUser2User(credential.user)),
-			catchError(this.handleFireauthError)
-		);
+	public signup(id: string, secret: string, name: string): Observable<IUser> {
+		this.apollo.mutate({
+			mutation: signupQuery,
+			variables: {
+				name,
+				password: secret,
+				email: id
+			}
+		}).subscribe(({ data }) => {
+			console.log(data);
+		}, (error) => {
+			console.log('there was an error sending the query', error);
+		});
+		return null;
 	}
 
-	public signout(): Observable<never> {
+	/*public signout(): Observable<never> {
 		return from(this.fireAuth.signOut).pipe(
 			switchMap(v => EMPTY)
 		);
-	}
+	}*/
 
-	private handleFireauthError(error: auth.Error): Observable<never> {
+/*	private handleFireauthError(error: auth.Error): Observable<never> {
 		switch (error.code) {
 			case Codes.WRONG_PASSWORD:
 			case Codes.USER_NOT_FOUND:
@@ -55,5 +81,5 @@ export class AuthService {
 				return throwError(Authcodes.INVALID_EMAIL);
 		}
 		return throwError(Authcodes.UNKNOWN_ERROR);
-	}
+	}*/
 }

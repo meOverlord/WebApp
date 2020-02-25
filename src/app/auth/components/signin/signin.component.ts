@@ -8,33 +8,36 @@ import { authSelector } from '@store/selectors';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-signin',
-  templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.scss']
+	selector: 'app-signin',
+	templateUrl: './signin.component.html',
+	styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent implements OnInit {
-  formData: {email: string, password: string} = {
-    email: '',
-    password: ''
-  };
+	formData: { email: string, password: string, name: string } = {
+		email: '',
+		password: '',
+		name: '',
+	};
 
-  constructor(
-    private router: Router,
-    private store: Store<IAppState>) { }
+	constructor(
+		private router: Router,
+		private store: Store<IAppState>) { }
 
-  ngOnInit(): void {
-    this.store.pipe(
-      select(authSelector),
-    ).subscribe(auth => {
-      if (auth) {
-        this.router.navigate(['']);
-      }
-    });
-  }
+	ngOnInit(): void {
+		this.store.pipe(
+			select(authSelector),
+		).subscribe(auth => {
+			if (auth) {
+				this.router.navigate(['']);
+			}
+		});
+	}
 
-  submit(): void {
-    this.store.dispatch(signin({
-      id: this.formData.email, secret: this.formData.password
-    }));
-  }
+	submit(): void {
+		this.store.dispatch(signin({
+			id: this.formData.email,
+			secret: this.formData.password,
+			name: this.formData.name
+		}));
+	}
 }

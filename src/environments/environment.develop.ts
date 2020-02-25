@@ -14,7 +14,7 @@ export const environment = {
 		appId: '1:372057439446:web:6da1903b2dac3c3ef89d77',
 		measurementId: 'G-HB269SLWFL'
 	},
-	backend: 'http://localhost:3000/',
+	backend: 'https://todo/',
 };
 
 /*

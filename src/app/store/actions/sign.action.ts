@@ -15,13 +15,14 @@ export enum SignActions {
 export interface SignPayload {
 	id: string;
 	secret: string;
+	name: string;
 }
 export interface SignErrorPayload {
 	code: string;
 }
 
 export const signin			= createAction(SignActions.SIGNIN, props<SignPayload>());
-export const signinSuccess	= createAction(SignActions.SIGNIN_SUCCESS, props<IUser>());
+export const signinSuccess	= createAction(SignActions.SIGNIN_SUCCESS);
 export const signinFailure = createAction(SignActions.SIGNIN_FAILURE, props<SignErrorPayload>());
 export const signup 		= createAction(SignActions.SIGNUP, props<SignPayload>());
 export const signupSuccess	= createAction(SignActions.SIGNUP_SUCCESS, props<IUser>());

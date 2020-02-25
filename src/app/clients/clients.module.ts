@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { ClientsRoutingModule } from './clients-routing.module';
 import { ClientsRootComponent } from './components/clients-root/clients-root.component';
@@ -13,7 +12,6 @@ import { SharedModule } from '@shared/shared.module';
 	declarations: [ClientsRootComponent, ClientsDashbordComponent, ClientsTableComponent],
 	imports: [
 		CommonModule,
-		AngularFirestoreModule,
 		ClientsRoutingModule,
 		SharedModule
 	]

@@ -6,7 +6,7 @@ import { IAuthState, INITIAL_AUTH_STATE } from '../states/auth.state';
 
 const _authReducer = createReducer<IAuthState>(INITIAL_AUTH_STATE,
 	on(signin, state => ({...state, signedUser: undefined})),
-	on(signinSuccess, (state, user) => ({...state, signedUser: user})),
+	on(signinSuccess, (state) => ({...state, signedUser: {id: 0, name: 'Test'}})),
 	on(signinFailure, state => ({...state, signedUser: undefined})),
 	on(signup, state => ({...state, signedUser: undefined})),
 	on(signupSuccess, (state, user) => ({...state, signedUser: user})),
