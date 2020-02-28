@@ -58,7 +58,7 @@
                   "maximumError": "10kb"
                 }
               ]
-            }
+            },
             "production": {
               "fileReplacements": [
                 {
