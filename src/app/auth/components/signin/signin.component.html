@@ -1,10 +1,10 @@
 <form #signinForm="ngForm" (ngSubmit)="submit();">
   <div class="field">
-    <label class="label">Email</label>
+    <label class="label">Username or email</label>
     <div class="control">
-      <input name="email" [(ngModel)]="formData.email"
+      <input name="ident" [(ngModel)]="formData.ident"
         required minlength="3"
-        class="input" type="email" placeholder="Email" />
+        class="input" type="text" placeholder="Usernma or Email" />
     </div>
   </div>
   <div class="field">
@@ -21,7 +21,7 @@
     <div class="control">
       <button 
          [disabled]="!signinForm.valid"
-        type="submit" class="button is-link">Sign-up</button>
+        type="submit" class="button is-link">Sign-in</button>
     </div>
   </div>
 </form>

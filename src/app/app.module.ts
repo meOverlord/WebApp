@@ -18,6 +18,7 @@ import { backendConfig } from './shared/config/backend';
 import { SharedModule } from './shared/shared.module';
 import { SignEffect } from './store/effects/sign.effect';
 import { reducers } from './store/reducers/reducers';
+import { InitEffect } from '@store/effects';
 
 
 
@@ -33,7 +34,7 @@ import { reducers } from './store/reducers/reducers';
 			maxAge: 25, // Retains last 25 states
 			logOnly: environment.production, // Restrict extension to log-only mode
 		}),
-		EffectsModule.forRoot([SignEffect]),
+		EffectsModule.forRoot([SignEffect, InitEffect]),
 		StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
 		ApolloModule,
 		HttpLinkModule,

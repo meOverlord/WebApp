@@ -42,9 +42,8 @@ export class AuthService {
 			ident: id,
 			password: secret
 		}).pipe(
-			tap(result => this.jwt.authenticate(result.access_token)),
-			map(result => result?.access_token !== undefined),
-			catchError(err => of(false))
+			tap(result => this.jwt.authenticate(result?.access_token)),
+			map(() => true)
 		);
 	}
 

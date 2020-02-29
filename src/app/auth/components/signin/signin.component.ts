@@ -13,8 +13,8 @@ import { Router } from '@angular/router';
 	styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent implements OnInit {
-	formData: { email: string, password: string, name: string } = {
-		email: '',
+	formData = {
+		ident: '',
 		password: '',
 		name: '',
 	};
@@ -30,12 +30,15 @@ export class SigninComponent implements OnInit {
 			if (auth) {
 				this.router.navigate(['']);
 			}
+		},
+		err => {
+			console.log(err);
 		});
 	}
 
 	submit(): void {
 		this.store.dispatch(signin({
-			id: this.formData.email,
+			id: this.formData.ident,
 			secret: this.formData.password,
 			name: this.formData.name
 		}));
