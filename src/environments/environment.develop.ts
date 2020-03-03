@@ -14,7 +14,7 @@ export const environment = {
 		appId: '1:372057439446:web:6da1903b2dac3c3ef89d77',
 		measurementId: 'G-HB269SLWFL'
 	},
-	backend: 'https://over-backend-m3237gnexa-ew.a.run.app',
+	backend: 'https://over-backend-m3237gnexa-ew.a.run.app/',
 };
 
 /*
